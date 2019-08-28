@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SECRET</title>
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/snow.js"></script>
+	<link href="/static/css/snow.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+		p {
+			font-size: 11px;
+			color: #aaa;
+			line-height: 10px;
+			letter-spacing: 5px;
+		}
+		.passwd {
+			text-align: center;
+			margin: 0 auto;
+			padding: 10px;
+			box-sizing: border-box;
+		}
+		.passwd_input {
+			-webkit-appearance: none;
+			background-color: #fff;
+			background-image: none;
+			border-radius: 4px;
+			border: 1px solid #dcdfe6;
+			box-sizing: border-box;
+			color: #606266;
+			display: inline-block;
+			font-size: inherit;
+			height: 40px;
+			line-height: 40px;
+			outline: 0;
+			padding: 0 15px;
+			transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+			width: 30%;
+		}
+		.passwd_button {
+			width: 65px;
+			height: 40px;
+			background: #eb1c1c;
+			border-radius: 5px;
+			font-size: 12px;
+			letter-spacing: 1.01px;
+			color: #fff;
+			border: 1px solid #eb1c1c;
+			box-sizing: border-box;
+			cursor: pointer;
+		}
+		.passwd_button:hover{
+			background: #f95656;
+			border: 1px solid #f95656;
+		}
+		.change_style {
+			color: #F81414;
+			font-weight: 600;
+		}
+		.main {
+			width: 1000px;
+			position: relative;
+			margin: 0 auto;
+		}
+		.content {
+			text-align: center;
+			margin: 0 auto;
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+<div class="main">
+	<div class="passwd">
+		<input type="password" id="secret" placeholder="请输入4位密码" class="passwd_input">
+		<input type="button" value="确认" id="confirm" class="passwd_button">
+	</div>
+	<div class="content">
+	{{love_num | safe}}
+	</div>
+</div>
+<script type="text/javascript">
+	$('#confirm').click(function(){
+		var text = $('#secret').val();
+		var str=$(".content").html();
+		if($.trim(text)!=""){
+			var nn = str;
+			for(i=0; i<text.length; i++){
+				txt = text[i];
+				var re="<span class='change_style'>"+txt+"</span>";
+				nn=nn.replace( new RegExp(txt, "gm"), re);
+			}
+			$(".content").html(nn);
+			if(text == '0203'){
+				createSnow('', 120);
+			}
+        }else{
+			alert("要输入密码才可以~");
+		}
+	});
+</script>
+</body>
+</html>
