@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>SECRET</title>
+	<meta name="viewport"content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no,email=no"/>
 	<script src="/static/js/jquery.min.js"></script>
 	<script src="/static/js/snow.js"></script>
 	<link href="/static/css/snow.css" rel="stylesheet" type="text/css">
@@ -65,6 +67,22 @@
 			text-align: center;
 			margin: 0 auto;
 			position: relative;
+		}
+		@media screen and (max-width: 530px) {
+			p {
+				font-size: 8px;
+				color: #aaa;
+				line-height: 2px;
+				letter-spacing: 1px;
+			}
+			.main {
+				width: 400px;
+				position: relative;
+				margin: 0 auto;
+			}
+			.passwd_input {
+				width: 70%;
+			}
 		}
 	</style>
 </head>
