@@ -48,7 +48,6 @@
         mins = Math.floor(diffSecs / 60) % 60;
         hours = Math.floor(diffSecs / 60 / 60) % 24;
         days = Math.floor(diffSecs / 60 / 60 / 24);
-        console.log(days, hours, mins, secs, diffSecs);
         $this.dashChangeTo(id, 'seconds_dash', secs, duration ? duration: 800);
         $this.dashChangeTo(id, 'minutes_dash', mins, duration ? duration: 1200);
         $this.dashChangeTo(id, 'hours_dash', hours, duration ? duration: 1200);
