@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time</title>
+    <link href="/static/css/time/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/time/style.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/time/style2.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/time/vegas.min.css" rel="stylesheet" type="text/css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/time.js"></script>
+    <script src="/static/js/zepto.min.js"></script>
+    <script src="/static/js/vegas.min.js"></script>
+</head>
+<body>
+    <div id="vegas"></div>
+    <div class="switch" id="switch">
+        <svg t="1573006364850" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1186" data-spm-anchor-id="a313x.7781069.0.i4" width="256" height="256"><path d="M648.448 948.48c-19.968 0-38.912-7.936-53.248-22.016-14.336-14.336-22.272-33.536-22.272-53.76v-241.92c0-41.728 34.048-75.776 75.776-75.776h241.92c41.728 0 75.776 34.048 75.776 75.776v241.92c0 41.728-34.048 75.776-75.776 75.776h-242.176z m-7.168-68.096c2.048 2.304 7.936 6.912 16.896 6.912h223.488c13.056 0 23.808-10.752 23.808-24.064V640c0-13.312-10.752-24.064-23.808-24.064h-223.232c-13.056 0-23.808 10.752-23.808 24.064v223.232c-0.256 9.216 4.352 14.848 6.656 17.152z" fill="#8a8a8a" p-id="1187" data-spm-anchor-id="a313x.7781069.0.i1" class="selected"></path><path d="M177.664 468.992c-19.968 0-38.912-7.936-53.248-22.016-14.336-14.336-22.272-33.536-22.272-53.76V151.296c0-41.728 34.048-75.776 75.776-75.776H419.84c41.728 0 75.776 34.048 75.776 75.776v241.92c0 41.728-34.048 75.776-75.776 75.776H177.664z m-7.424-68.352c2.048 2.304 7.936 6.912 16.896 6.912h223.488c13.056 0 23.808-10.752 23.808-24.064V160.512c0-13.312-10.752-24.064-23.808-24.064H187.136c-13.056 0-23.808 10.752-23.808 24.064V384c0 8.96 4.608 14.592 6.912 16.64z" fill="#f56c6c" p-id="1188" data-spm-anchor-id="a313x.7781069.0.i0" class=""></path><path d="M459.52 923.904c-2.56 0-5.376-0.512-7.168-1.28l-1.28-0.512-1.536-0.256c-110.848-17.92-211.968-72.96-284.16-154.368l-17.92-20.224v82.432c0 14.08-11.52 25.344-25.344 25.344h-3.584c-14.08 0-25.344-11.52-25.344-25.344V656.64v-2.048-3.328c0.256-0.768 0.256-1.536 0.512-2.304l0.256-1.28c0.256-1.536 0.512-3.072 0.768-3.84v-0.512c3.584-11.008 13.056-18.176 23.808-18.176h3.584c10.496 0 19.712 6.4 23.552 16.384l0.256 0.768v0.256c63.488 122.368 178.688 204.544 316.16 225.792H465.664c15.104 0.768 26.88 13.312 26.88 28.672 0 15.616-11.264 26.88-27.136 27.136l-5.888-0.256zM937.472 412.16c-4.352 0-8.96-1.536-13.824-5.12l-0.256-0.256c-5.12-3.072-8.448-6.4-10.496-10.496-59.136-118.272-167.168-200.704-297.472-227.328v-2.048l-9.984-0.256c-15.616-0.256-28.16-13.056-28.16-28.416 0-15.616 12.544-28.16 28.16-28.416l1.024 0.256h1.024c4.096 0.256 7.424 1.024 10.24 2.56l1.28 0.512 1.28 0.256c108.8 20.736 203.776 75.008 274.176 156.416l17.92 20.736V207.616c0-14.08 11.52-25.344 25.344-25.344h3.584c14.08 0 25.344 11.52 25.344 25.6v178.944c0 14.08-11.52 25.344-25.344 25.344h-3.84z" fill="#8a8a8a" p-id="1189" data-spm-anchor-id="a313x.7781069.0.i2" class="selected"></path></svg>
+    </div>
+    <div class="main">
+        <div class="know" id="know" style="display: block;">
+            <div class="title-know">We've known each other for</div>
+            <div id="countdown">
+                <div class="dash days_dash">
+                    <span class="dash_title">Days</span>
+                    <div class="digit">0</div>
+                    <div class="digit">0</div>
+                    <div class="digit">0</div>
+                </div>
+                <div class="dash hours_dash">
+                    <span class="dash_title">Hours</span>
+                    <div class="digit">0</div>
+                    <div class="digit">0</div>
+                </div>
+                <div class="dash minutes_dash">
+                    <span class="dash_title">Minutes</span>
+                    <div class="digit">0</div>
+                    <div class="digit">0</div>
+                </div>
+                <div class="dash seconds_dash">
+                    <span class="dash_title">Seconds</span>
+                    <div class="digit">0</div>
+                    <div class="digit">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="love" id="love" style="display: none;">
+            <div class="title-love">We've been in <span style="color: rgb(245, 108, 108); font-weight: 700;">love</span> for</div>
+            <div id="countdown1">
+                <div class="dash days_dash">
+                    <span class="dash_title">Days</span>
+                    <div class="digit">0</div>
+                    <div class="digit">0</div>
+                    <div class="digit">0</div>
+                </div>
+                <div class="dash hours_dash">
+                    <span class="dash_title">Hours</span>
+                    <div class="digit">0</div>
+                    <div class="digit">0</div>
+                </div>
+                <div class="dash minutes_dash">
+                    <span class="dash_title">Minutes</span>
+                    <div class="digit">0</div>
+                    <div class="digit">0</div>
+                </div>
+                <div class="dash seconds_dash">
+                    <span class="dash_title">Seconds</span>
+                    <div class="digit">0</div>
+                    <div class="digit">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        $("body").css("height", $(window).height());
+        document.documentElement.style.overflow='hidden';
+        document.body.style.overflow='hidden';   //手机版
+        jQuery(document).ready(function() {
+            $('#countdown').countDown({
+                targetDate: {
+                    'day': 21,
+                    'month': 5,
+                    'year': 2019,
+                    'hour': 20,
+                    'min': 20,
+                    'sec': 52
+                }
+            });
+        });
+        jQuery(document).ready(function() {
+            $('#countdown1').countDown({
+                targetDate: {
+                    'day': 7,
+                    'month': 8,
+                    'year': 2019,
+                    'hour': 21,
+                    'min': 0,
+                    'sec': 0
+                }
+            });
+        });
+        $("#switch").click(function () {
+            let know = $("#know");
+            let love = $("#love");
+            console.log(know.css("display") === "block");
+            if(know.css("display") === "block"){
+                know.css("display", "none");
+                love.css("display", "block");
+            }else{
+                know.css("display", "block");
+                love.css("display", "none");
+            }
+        })
+        $("#vegas, body").vegas({
+            transition: [ 'fade', 'zoomOut', 'swirlLeft', "swirlRight2", "slideUp", "blur", "blur2"],
+            animation: [ 'kenburnsUp', 'kenburnsDown', 'kenburnsLeft', 'kenburnsRight' ],
+            slides: [
+                { src: "/static/img/album/1.jpg" },
+                { src: "/static/img/album/2.jpg" },
+                { src: "/static/img/album/3.jpg" },
+                { src: "/static/img/album/4.jpg" },
+                { src: "/static/img/album/5.jpg" },
+            ],
+            overlay: '/static/img/overlays.png'
+        });
+    </script>
+</body>
+</html>

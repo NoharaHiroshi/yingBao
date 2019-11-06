@@ -16,5 +16,13 @@ def index():
     return render_template('index.html', **context)
 
 
+@website.route('/time')
+def time():
+    context = {
+        'time': ""
+    }
+    return render_template("time.html", **context)
+
+
 if __name__ == "__main__":
     print os.path.dirname(__file__)
