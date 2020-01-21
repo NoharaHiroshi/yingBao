@@ -27,5 +27,14 @@ def time():
     return render_template("time.html", **context)
 
 
+@website.route('/card')
+def card():
+    calc_visit_count(request.remote_addr, Visit.TYPE_CARD, request.headers.get("User-Agent"))
+    context = {
+        'card': ""
+    }
+    return render_template("YinBaoAlbum.html", **context)
+
+
 if __name__ == "__main__":
     print os.path.dirname(__file__)
