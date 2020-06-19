@@ -18,6 +18,10 @@
     </div>
     <div class="main">
         <div class="know" id="know" style="display: block;">
+			<div class="layui-icon layui-icon-headset" id="player" title="播放音乐">
+				<svg t="1574336023330" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4928" width="256" height="256"><path d="M510.976 1019.392c-68.608 0-135.68-13.312-198.144-39.936-60.928-25.6-115.2-62.464-161.792-109.056s-83.456-101.376-109.056-161.792C14.848 645.12 1.536 578.56 1.536 509.952c0-68.608 13.312-135.68 39.936-198.144 25.6-60.928 62.464-115.2 109.056-161.792S251.904 66.048 312.832 39.936C375.808 13.312 442.368 0 510.976 0s135.68 13.312 198.656 39.936c60.928 25.6 115.2 62.464 161.792 109.056s83.456 101.376 109.056 161.792c26.624 62.976 39.936 129.536 39.936 198.656s-13.312 135.68-39.936 198.656c-25.6 60.928-62.464 115.2-109.056 161.792s-101.376 83.456-161.792 109.056c-62.976 26.624-129.536 40.448-198.656 40.448z m0-955.904c-60.416 0-118.784 11.776-173.568 34.816-53.248 22.528-100.864 54.784-141.824 95.744S122.88 283.136 100.352 335.872c-23.04 54.784-34.816 113.152-34.816 173.568s11.776 118.784 34.816 173.568c22.528 53.248 54.784 100.864 95.744 141.824s88.576 73.216 141.824 95.744c54.784 23.04 113.152 34.816 173.568 34.816s118.784-11.776 173.568-34.816c53.248-22.528 100.864-54.784 141.824-95.744s73.216-88.576 95.744-141.824c23.04-54.784 34.816-113.152 34.816-173.568s-11.776-118.784-34.816-173.568c-22.528-53.248-54.784-100.864-95.744-141.824s-88.576-73.216-141.824-95.744c-55.296-23.04-113.664-34.816-174.08-34.816z" fill="#f56c6c" p-id="4929" data-spm-anchor-id="a313x.7781069.0.i3" class="selected"></path><path d="M717.312 478.72L422.4 308.736c-23.552-13.824-53.248 3.584-53.248 30.72v340.992c0 27.136 29.696 44.032 53.248 30.72l295.424-170.496c23.04-14.336 23.04-48.128-0.512-61.952z" fill="#f56c6c" p-id="4930" data-spm-anchor-id="a313x.7781069.0.i4" class="selected"></path></svg>
+			</div>
+			<audio style="display: none" id="uploadMusic"  src="/static/audio/love_paradise.m4a"></audio>
             <div class="title-know">We've known each other for</div>
             <div id="countdown">
                 <div class="dash days_dash">
@@ -74,7 +78,7 @@
     <script language="javascript" type="text/javascript">
         $("body").css("height", $(window).height());
         document.documentElement.style.overflow='hidden';
-        document.body.style.overflow='hidden';   //手机版
+        document.body.style.overflow='hidden';   
         jQuery(document).ready(function() {
             $('#countdown').countDown({
                 targetDate: {
@@ -128,6 +132,15 @@
             ],
             overlay: '/static/img/overlays.png'
         });
+		$("#player").bind("click",function () {
+           let  uploadMusic = $("#uploadMusic")[0]; /*jquery对象转换成js对象*/
+           if (uploadMusic.paused){
+               /*如果已经暂停*/
+               uploadMusic.play();/*播放*/
+           }else {
+               uploadMusic.pause();/*暂停*/
+           }
+		})
     </script>
 </body>
 </html>

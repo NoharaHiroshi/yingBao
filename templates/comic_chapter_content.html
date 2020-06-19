@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="wap-font-scale" content="no">
+    <script src="/static/js/jquery.min.js"></script>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        .header {
+            height: 50px;
+            line-height: 50px;
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+            background: url(../static/img/head_line.gif) no-repeat bottom;
+            background-size: 100% 2px;
+        }
+        .img-box {
+            background: #fff;
+            height: auto !important;
+            min-height: 0;
+            padding: 0;
+        }
+        .comic-img {
+            width: 100%;
+            min-height:260px;
+        }
+    </style>
+    <title>{{ comic_name }} | {{ chapter_name }}</title>
+</head>
+<body>
+    <div class="header">{{ comic_name }} | {{ chapter_name }}</div>
+    <div class="img-box">
+        {% for img_url in img_url_list %}
+            <img class="comic-img" data-src={{ img_url }} src="">
+        {% endfor %}
+    </div>
+    <script>
+            start();
+            let clock;
+            $(window).on('scroll',function(){
+                if(clock){
+                    clearTimeout(clock);
+                }
+                clock = setTimeout(function(){
+                    start()
+                },200)
+            });
+            function start(){
+                 $('.img-box img').not('[data-isLoading]').each(function () {
+                    if (isShow($(this))) {
+                        loadImg($(this));
+                    }
+                })
+            }
+            function isShow($node){
+                return $node.offset().top <= $(window).height()+$(window).scrollTop();
+            }
+            function loadImg($img){
+                    $img.attr('src', $img.attr('data-src'));
+                    $img.attr('data-isLoading',1);
+            }
+        </script>
+</body>
+</html>

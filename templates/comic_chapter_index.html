@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="wap-font-scale" content="no">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        .header {
+            height: 50px;
+            line-height: 50px;
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+            background: url(../static/img/head_line.gif) no-repeat bottom;
+            background-size: 100% 2px;
+        }
+        .img-box {
+            margin-bottom: 14px;
+            background: #fff;
+            height: auto !important;
+            min-height: 0;
+            padding: 0 10px;
+        }
+        .continue {
+            line-height: 30px;
+            height: 30px;
+            font-size: 14px;
+            text-align: center;
+            width: 80%;
+            margin: 20px auto;
+            background: #e33e33;
+            color: #fff;
+        }
+        .chapter {
+            font-size: 12px;
+            text-align: center;
+            line-height: 30px;
+            height: 30px;
+            border: 1px solid #eaeaea;
+            margin: 5px 0;
+            color: #333;
+            display: block;
+            text-decoration: none;
+        }
+    </style>
+    <title>{{ name }}</title>
+</head>
+<body>
+    <div class="header">{{ name }}</div>
+    <div class="continue">继续阅读</div>
+    <div class="img-box">
+        {% for chapter in chapter_list %}
+            <a class="chapter" href="/comic_chapter_content?comic_id={{ comic_id }}&chapter_id={{ chapter['id'] }}">{{ chapter['name'] }}</a>
+        {% endfor %}
+    </div>
+</body>
+</html>

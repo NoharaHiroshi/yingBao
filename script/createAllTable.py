@@ -3,6 +3,9 @@
 from model.config.session import engine
 from model.base import Base
 import model.visit
+import model.comic
+import model.comic_chapter
+import model.comic_read_record
 
 
 def create_all_tables():
