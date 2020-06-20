@@ -38,6 +38,8 @@
             margin: 20px auto;
             background: #e33e33;
             color: #fff;
+            display: block;
+            text-decoration: none;
         }
         .chapter {
             font-size: 12px;
@@ -50,12 +52,23 @@
             display: block;
             text-decoration: none;
         }
+        .header-return {
+            font-size: 12px;
+            color: #888;
+            text-decoration: none;
+            margin-left: 20px;
+            float: left;
+
+        }
     </style>
     <title>{{ name }}</title>
 </head>
 <body>
-    <div class="header">{{ name }}</div>
-    <div class="continue">继续阅读</div>
+    <div class="header">
+         <a class="header-return" href="comic_index">返回</a>
+        <span style="margin-left: -30px">{{ name }}</span>
+    </div>
+    <a class="continue" href="/comic_chapter_content?comic_id={{ comic_id }}&chapter_id={{ continue_chapter_id }}#{{ continue_page }}">继续阅读 {{ continue_chapter_name }}</a>
     <div class="img-box">
         {% for chapter in chapter_list %}
             <a class="chapter" href="/comic_chapter_content?comic_id={{ comic_id }}&chapter_id={{ chapter['id'] }}">{{ chapter['name'] }}</a>

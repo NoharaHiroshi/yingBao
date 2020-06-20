@@ -36,6 +36,9 @@
             height: 30px;
             border: 1px solid #eaeaea;
             margin: 5px 0;
+            display: block;
+            text-decoration: none;
+            color: #333;
         }
     </style>
     <title>漫画列表</title>
@@ -44,7 +47,7 @@
     <div class="header">漫画列表</div>
     <div class="img-box">
         {% for comic in comic_list %}
-            <div class="comic" data-id={{ comic['id'] }}>{{ comic['name'] }}</div>
+            <a class="comic" href="/comic_chapter_list?comic_id={{ comic['id'] }}">{{ comic['name'] }}</a>
         {% endfor %}
     </div>
 </body>

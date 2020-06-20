@@ -20,32 +20,61 @@
             font-size: 14px;
             color: #888;
             text-align: center;
-            background: url(../static/img/head_line.gif) no-repeat bottom;
+            background: #fff;
             background-size: 100% 2px;
+            position: fixed;
+            width: 100%;
+            margin-top: -50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         .img-box {
             background: #fff;
             height: auto !important;
             min-height: 0;
             padding: 0;
+            margin-top: 50px;
         }
         .comic-img {
             width: 100%;
-            min-height:260px;
+            max-width: 500px;
+            display: block;
+            margin: 0 auto;
+        }
+        .header-return {
+            font-size: 12px;
+            color: #888;
+            text-decoration: none;
+            margin-left: 20px;
+            float: left;
+
+        }
+        .next_chapter {
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+            display: block;
+            color: #888;
         }
     </style>
     <title>{{ comic_name }} | {{ chapter_name }}</title>
 </head>
 <body>
-    <div class="header">{{ comic_name }} | {{ chapter_name }}</div>
+    <div class="header">
+        <a class="header-return" href="comic_chapter_list?comic_id={{ comic_id }}">返回</a>
+        <span style="margin-left: -20px">{{ comic_name }} | {{ chapter_name }}</span>
+    </div>
     <div class="img-box">
-        {% for img_url in img_url_list %}
-            <img class="comic-img" data-src={{ img_url }} src="">
+        {% for img in img_url_list %}
+            <img class="comic-img" id={{ img["id"] }} data-src={{ img['url'] }} src="" height="600px">
         {% endfor %}
+        <a class="next_chapter" href="/comic_chapter_content?comic_id={{ comic_id }}&chapter_id={{ next_chapter_id }}">下一话 > </a>
     </div>
     <script>
             start();
             let clock;
+            let current_page;
             $(window).on('scroll',function(){
                 if(clock){
                     clearTimeout(clock);
@@ -55,8 +84,10 @@
                 },200)
             });
             function start(){
+                let self = this;
                  $('.img-box img').not('[data-isLoading]').each(function () {
                     if (isShow($(this))) {
+                        self.current_page = $(this).context.id;
                         loadImg($(this));
                     }
                 })
@@ -67,7 +98,21 @@
             function loadImg($img){
                     $img.attr('src', $img.attr('data-src'));
                     $img.attr('data-isLoading',1);
+                    $img.attr("height", "100%");
             }
-        </script>
+            setInterval(function () {
+                let data = {
+                    "chapter_id": "{{ chapter_id }}",
+                    "comic_id": "{{ comic_id }}",
+                    "page": this.current_page
+                };
+                console.log(data);
+                $.post("/comic_read_record", data, function(result){
+                    if(result.response === "success") {
+                        console.log("已保存阅读记录")
+                    }
+                });
+            }, 3000)
+    </script>
 </body>
 </html>
