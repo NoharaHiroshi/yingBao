@@ -36,7 +36,6 @@
         }
         .comic-img {
             width: 100%;
-            max-width: 500px;
             display: block;
             margin: 0 auto;
         }
@@ -67,7 +66,7 @@
     </div>
     <div class="img-box">
         {% for img in img_url_list %}
-            <img class="comic-img" id={{ img["id"] }} data-src={{ img['url'] }} src="" height="600px">
+            <img class="comic-img" id={{ img["id"] }} data-src={{ img['url'] }} src="/static/img/loading.jpg" height="600px">
         {% endfor %}
         <a class="next_chapter" href="/comic_chapter_content?comic_id={{ comic_id }}&chapter_id={{ next_chapter_id }}">下一话 > </a>
     </div>
@@ -75,25 +74,31 @@
             start();
             let clock;
             let current_page;
-            $(window).on('scroll',function(){
+            $(window).on('scroll',function(e){
                 if(clock){
                     clearTimeout(clock);
                 }
                 clock = setTimeout(function(){
                     start()
-                },200)
+                },200);
+                $('.img-box img').each(function () {
+                    getCurrentPage($(this));
+                })
             });
             function start(){
                 let self = this;
                  $('.img-box img').not('[data-isLoading]').each(function () {
                     if (isShow($(this))) {
-                        self.current_page = $(this).context.id;
                         loadImg($(this));
                     }
                 })
             }
             function isShow($node){
                 return $node.offset().top <= $(window).height()+$(window).scrollTop();
+            }
+            function getCurrentPage() {
+                let currentScrollHeight = $(window).height()+$(window).scrollTop();
+                this.current_page = Math.ceil(currentScrollHeight / $("#0")[0].offsetHeight);
             }
             function loadImg($img){
                     $img.attr('src', $img.attr('data-src'));
@@ -112,7 +117,7 @@
                         console.log("已保存阅读记录")
                     }
                 });
-            }, 3000)
+            }, 3000);
     </script>
 </body>
 </html>

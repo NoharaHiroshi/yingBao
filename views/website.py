@@ -73,11 +73,15 @@ def chapter_list():
         comic = db_session.query(Comic).get(comic_id)
         chapter_data = db_session.query(ComicChapter).filter(
             ComicChapter.comic_id == comic_id
-        ).order_by(ComicChapter.index).all()
+        ).order_by(-ComicChapter.index).all()
         comic_read_record = db_session.query(ComicReadRecord).filter(
             ComicReadRecord.comic_id == comic_id
         ).first()
-        chapter_record = db_session.query(ComicChapter).get(comic_read_record.chapter_id)
+        if comic_read_record:
+            chapter_record = db_session.query(ComicChapter).get(comic_read_record.chapter_id)
+            context["continue_chapter_id"] = str(comic_read_record.chapter_id)
+            context["continue_chapter_name"] = chapter_record.chapter_name
+            context["continue_page"] = comic_read_record.page
         for chapter in chapter_data:
             chapter_info = {
                 "id": str(chapter.id),
@@ -86,9 +90,6 @@ def chapter_list():
             }
             chapter_list_info.append(chapter_info)
     context["name"] = comic.name
-    context["continue_chapter_id"] = str(comic_read_record.chapter_id)
-    context["continue_chapter_name"] = chapter_record.chapter_name
-    context["continue_page"] = comic_read_record.page
     return render_template("comic_chapter_index.html", **context)
 
 
@@ -110,7 +111,8 @@ def comic_chapter_content():
         comic = db_session.query(Comic).get(comic_id)
         chapter = db_session.query(ComicChapter).get(chapter_id)
         next_chapter = db_session.query(ComicChapter).filter(
-            ComicChapter.index == chapter.index - 1
+            ComicChapter.comic_id == comic_id,
+            ComicChapter.index == chapter.index + 1
         ).first()
     comic_base_path = os.path.join(os.path.join(os.path.dirname(os.path.dirname(__file__)), "static"), "comic")
     comic_path = os.path.join(comic_base_path, comic.name)
@@ -124,8 +126,11 @@ def comic_chapter_content():
             url = url.replace(" ", "%20")
             img_url_list.append({
                 "url": url,
-                "id": i
+                "id": f.split(".")[0],
+                "file": f
             })
+    img_url_list.sort(key=lambda x: int(x["file"].split(".")[0]))
+    print img_url_list
     context.update({
         "comic_name": comic.name,
         "chapter_name": chapter.chapter_name,
