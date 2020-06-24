@@ -71,34 +71,23 @@
         <a class="next_chapter" href="/comic_chapter_content?comic_id={{ comic_id }}&chapter_id={{ next_chapter_id }}">下一话 > </a>
     </div>
     <script>
-            start();
             let clock;
-            let current_page;
+            let current_page = parseInt(document.location.hash.split("#")[1]);
             $(window).on('scroll',function(e){
                 if(clock){
                     clearTimeout(clock);
                 }
                 clock = setTimeout(function(){
-                    start()
+                    let images = $('.img-box img');
+                    current_page = getCurrentPage();
+                    // 加载后面2页
+                    loadImg($(images[current_page]));
+                    loadImg($(images[current_page+1]));
                 },200);
-                $('.img-box img').each(function () {
-                    getCurrentPage($(this));
-                })
             });
-            function start(){
-                let self = this;
-                 $('.img-box img').not('[data-isLoading]').each(function () {
-                    if (isShow($(this))) {
-                        loadImg($(this));
-                    }
-                })
-            }
-            function isShow($node){
-                return $node.offset().top <= $(window).height()+$(window).scrollTop();
-            }
             function getCurrentPage() {
                 let currentScrollHeight = $(window).height()+$(window).scrollTop();
-                this.current_page = Math.ceil(currentScrollHeight / $("#0")[0].offsetHeight);
+                return Math.ceil(currentScrollHeight / $("#0")[0].offsetHeight) - 2;
             }
             function loadImg($img){
                     $img.attr('src', $img.attr('data-src'));
@@ -109,7 +98,7 @@
                 let data = {
                     "chapter_id": "{{ chapter_id }}",
                     "comic_id": "{{ comic_id }}",
-                    "page": this.current_page
+                    "page": current_page
                 };
                 console.log(data);
                 $.post("/comic_read_record", data, function(result){
