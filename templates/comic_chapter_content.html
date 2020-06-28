@@ -73,6 +73,9 @@
     <script>
             let clock;
             let current_page = parseInt(document.location.hash.split("#")[1]);
+            if(!current_page) {
+                current_page = 0;
+            }
             $(window).on('scroll',function(e){
                 if(clock){
                     clearTimeout(clock);
@@ -90,9 +93,9 @@
                 return Math.ceil(currentScrollHeight / $("#0")[0].offsetHeight) - 2;
             }
             function loadImg($img){
-                    $img.attr('src', $img.attr('data-src'));
-                    $img.attr('data-isLoading',1);
-                    $img.attr("height", "100%");
+                $img.attr('src', $img.attr('data-src'));
+                $img.attr('data-isLoading',1);
+                $img.attr("height", "100%");
             }
             setInterval(function () {
                 let data = {

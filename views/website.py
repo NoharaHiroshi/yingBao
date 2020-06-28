@@ -126,11 +126,11 @@ def comic_chapter_content():
             url = url.replace(" ", "%20")
             img_url_list.append({
                 "url": url,
-                "id": f.split(".")[0],
                 "file": f
             })
     img_url_list.sort(key=lambda x: int(x["file"].split(".")[0]))
-    print img_url_list
+    for i in range(len(img_url_list)):
+        img_url_list[i]["id"] = i
     context.update({
         "comic_name": comic.name,
         "chapter_name": chapter.chapter_name,

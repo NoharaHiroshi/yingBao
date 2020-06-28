@@ -27,6 +27,7 @@ def cutting_image(file_path):
     if not os.path.exists(dst_path):
         os.makedirs(dst_path)
     for root, dirs, files in os.walk(file_path):
+        files.sort(key=lambda x: int(x.split(".")[0]))
         for i in range(len(files)):
             name = files[i]
             print "cutting_image: %s" % name
@@ -44,6 +45,6 @@ def cutting_image(file_path):
 
 
 if __name__ == "__main__":
-    path = u"D:\\myWork\\downloadComics\\寄生兽\\2_3卷"
-    dst_path = convert_img(path)
-    cutting_image(dst_path)
+    path = u"D:\\myWork\\downloadComics\\杀戮都市GANTZ\\7_第8卷"
+    # dst_path = convert_img(path)
+    cutting_image(path)
