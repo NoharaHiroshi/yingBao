@@ -105,7 +105,9 @@ def comic_chapter_content():
         "img_url_list": img_url_list,
         "comic_id": str(comic_id),
         "chapter_id": str(chapter_id),
-        "next_chapter_id": ""
+        "page_num": "",
+        "next_chapter_id": "",
+        "before_chapter_id": ""
     }
     with get_session() as db_session:
         comic = db_session.query(Comic).get(comic_id)
@@ -113,6 +115,10 @@ def comic_chapter_content():
         next_chapter = db_session.query(ComicChapter).filter(
             ComicChapter.comic_id == comic_id,
             ComicChapter.index == chapter.index + 1
+        ).first()
+        before_chapter = db_session.query(ComicChapter).filter(
+            ComicChapter.comic_id == comic_id,
+            ComicChapter.index == chapter.index - 1
         ).first()
     comic_base_path = os.path.join(os.path.join(os.path.dirname(os.path.dirname(__file__)), "static"), "comic")
     comic_path = os.path.join(comic_base_path, comic.name)
@@ -136,7 +142,9 @@ def comic_chapter_content():
         "chapter_name": chapter.chapter_name,
         "chapter_page": chapter.page_num,
         "img_url_list": img_url_list,
-        "next_chapter_id": str(next_chapter.id)
+        "page_num": len(img_url_list),
+        "next_chapter_id": str(next_chapter.id),
+        "before_chapter_id": str(before_chapter.id)
     })
     return render_template("comic_chapter_content.html", **context)
 

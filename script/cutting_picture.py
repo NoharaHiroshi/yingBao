@@ -27,24 +27,25 @@ def cutting_image(file_path):
     if not os.path.exists(dst_path):
         os.makedirs(dst_path)
     for root, dirs, files in os.walk(file_path):
-        files.sort(key=lambda x: int(x.split(".")[0]))
+        files.sort(key=lambda x: int(x.split("_")[1].split(".")[0]))
         for i in range(len(files)):
-            name = files[i]
-            print "cutting_image: %s" % name
-            img_path = os.path.join(root, name)
-            img = Image.open(img_path)
-            if len(img.split()) == 4:
-                r, g, b, a = img.split()
-                img = Image.merge("RGB", (r, g, b))
-            w, h = img.size
-            new_w = w // 2
-            for r in range(2):
-                box = (r * new_w, 0, (r + 1) * new_w, h)
-                new_name = "%s.jpg" % (2 * i + 1 if r == 0 else 2 * i)
-                img.crop(box).save(os.path.join(dst_path, new_name))
+            try:
+                name = files[i]
+                print "cutting_image: %s" % name
+                img_format = name.split(".")[-1]
+                img_path = os.path.join(root, name)
+                img = Image.open(img_path)
+                w, h = img.size
+                new_w = w // 2
+                for r in range(2):
+                    box = (r * new_w, 0, (r + 1) * new_w, h)
+                    new_name = "%s.%s" % ((2 * i + 1 if r == 0 else 2 * i), img_format)
+                    img.crop(box).save(os.path.join(dst_path, new_name))
+            except Exception as e:
+                print e
+                continue
 
 
 if __name__ == "__main__":
-    path = u"D:\\myWork\\downloadComics\\杀戮都市GANTZ\\7_第8卷"
-    # dst_path = convert_img(path)
+    path = u"F:\\downloads\\全职猎人\\32_Vol_33"
     cutting_image(path)

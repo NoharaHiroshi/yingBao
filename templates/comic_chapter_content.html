@@ -27,6 +27,19 @@
             margin-top: -50px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
+        .footer {
+            height: 25px;
+            line-height: 25px;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            background: #fff;
+            background-size: 100% 2px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
         .img-box {
             background: #fff;
             height: auto !important;
@@ -45,16 +58,30 @@
             text-decoration: none;
             margin-left: 20px;
             float: left;
-
         }
-        .next_chapter {
+        .next-chapter {
             text-decoration: none;
-            font-size: 14px;
+            font-size: 12px;
             text-align: center;
-            height: 30px;
-            line-height: 30px;
-            display: block;
+            display: inline-block;
+            float: right;
+            margin-right: 20px;
             color: #888;
+        }
+        .before-chapter {
+            text-decoration: none;
+            font-size: 12px;
+            text-align: center;
+            display: inline-block;
+            float: left;
+            margin-left: 20px;
+            color: #888;
+        }
+        .show-page {
+            display: inline-block;
+            text-align: center;
+            width: 20%;
+            margin: 0 auto;
         }
     </style>
     <title>{{ comic_name }} | {{ chapter_name }}</title>
@@ -68,7 +95,11 @@
         {% for img in img_url_list %}
             <img class="comic-img" id={{ img["id"] }} data-src={{ img['url'] }} src="/static/img/loading.jpg" height="600px">
         {% endfor %}
-        <a class="next_chapter" href="/comic_chapter_content?comic_id={{ comic_id }}&chapter_id={{ next_chapter_id }}">下一话 > </a>
+    </div>
+    <div class="footer">
+        <a class="before-chapter" href="/comic_chapter_content?comic_id={{ comic_id }}&chapter_id={{ before_chapter_id }}">< 上一话  </a>
+        <div class="show-page"><span id="current_page"></span>/{{ page_num }}</div>
+        <a class="next-chapter" href="/comic_chapter_content?comic_id={{ comic_id }}&chapter_id={{ next_chapter_id }}">下一话 > </a>
     </div>
     <script>
             let clock;
@@ -83,10 +114,12 @@
                 clock = setTimeout(function(){
                     let images = $('.img-box img');
                     current_page = getCurrentPage();
+                    $("#current_page").text(current_page);
                     // 加载后面2页
                     loadImg($(images[current_page]));
                     loadImg($(images[current_page+1]));
-                },200);
+					loadImg($(images[current_page+2]));
+                },100);
             });
             function getCurrentPage() {
                 let currentScrollHeight = $(window).height()+$(window).scrollTop();
