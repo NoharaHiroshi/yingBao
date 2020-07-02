@@ -51,7 +51,8 @@ def comic_list():
         for comic in comics:
             comic_info = {
                 "id": str(comic.id),
-                "name": comic.name
+                "name": comic.name,
+                "cover": "/static/comic_cover/%s.jpg" % comic.name
             }
             comic_list_info.append(comic_info)
     return render_template("comic_index.html", **context)
