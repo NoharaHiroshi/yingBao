@@ -52,7 +52,7 @@ def comic_list():
             comic_info = {
                 "id": str(comic.id),
                 "name": comic.name,
-                "cover": "/static/comic_cover/%s.jpg" % comic.name
+                "cover": "/static/comic_cover/%s.jpg" % comic.name.replace(" ", "")
             }
             comic_list_info.append(comic_info)
     return render_template("comic_index.html", **context)
@@ -121,6 +121,10 @@ def comic_chapter_content():
             ComicChapter.comic_id == comic_id,
             ComicChapter.index == chapter.index - 1
         ).first()
+    if next_chapter:
+        context["next_chapter_id"] = str(next_chapter.id)
+    if before_chapter:
+        context["before_chapter_id"] = str(before_chapter.id)
     comic_base_path = os.path.join(os.path.join(os.path.dirname(os.path.dirname(__file__)), "static"), "comic")
     comic_path = os.path.join(comic_base_path, comic.name)
     chapter_name = "%s_%s" % (chapter.index, chapter.chapter_name)
@@ -143,9 +147,7 @@ def comic_chapter_content():
         "chapter_name": chapter.chapter_name,
         "chapter_page": chapter.page_num,
         "img_url_list": img_url_list,
-        "page_num": len(img_url_list),
-        "next_chapter_id": str(next_chapter.id),
-        "before_chapter_id": str(before_chapter.id)
+        "page_num": len(img_url_list)
     })
     return render_template("comic_chapter_content.html", **context)
 
