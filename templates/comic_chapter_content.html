@@ -100,30 +100,26 @@
         <a class="next-chapter" href="/comic_chapter_content?comic_id={{ comic_id }}&chapter_id={{ next_chapter_id }}">下一话 > </a>
     </div>
     <script>
-            let clock;
             let current_page = parseInt(document.location.hash.split("#")[1]);
             if(!current_page) {
                 current_page = 0;
             }
-            $(window).on('scroll',function(e){
-                if(clock){
-                    clearTimeout(clock);
-                }
-                clock = setTimeout(function(){
-                    let images = $('.img-box img');
-                    current_page = getCurrentPage();
-                    $("#current_page").text(current_page);
-                    // 加载后面2页
-                    loadImg($(images[current_page]));
-                    loadImg($(images[current_page+1]));
-					loadImg($(images[current_page+2]));
-                },500);
-            });
-            function getCurrentPage() {
-                let currentScrollHeight = $(window).height()+$(window).scrollTop();
-                console.log("height:", $("#5")[0].offsetHeight);
-                return Math.ceil(currentScrollHeight / $("#5")[0].offsetHeight) - 2;
+            start();
+            function start() {
+                let images = $('.img-box img');
+                // 加载后面2页
+                loadImg($(images[current_page]));
+                loadImg($(images[current_page+1]));
+                loadImg($(images[current_page+2]));
             }
+            $(window).on('touchstart',function(e){
+                let images = $('.img-box img');
+                current_page = e.target.id;
+                // 加载后面2页
+                loadImg($(images[current_page]));
+                loadImg($(images[current_page+1]));
+                loadImg($(images[current_page+2]));
+            });
             function loadImg($img){
                 $img.attr('src', $img.attr('data-src'));
                 $img.attr('data-isLoading',1);
