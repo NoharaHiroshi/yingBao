@@ -111,14 +111,16 @@
                 loadImg($(images[current_page]));
                 loadImg($(images[current_page+1]));
                 loadImg($(images[current_page+2]));
+                $("#current_page").text(current_page);
             }
             $(window).on('touchstart',function(e){
                 let images = $('.img-box img');
-                current_page = e.target.id;
+                current_page = parseInt(e.target.id);
                 // 加载后面2页
                 loadImg($(images[current_page]));
                 loadImg($(images[current_page+1]));
                 loadImg($(images[current_page+2]));
+                $("#current_page").text(current_page);
             });
             function loadImg($img){
                 $img.attr('src', $img.attr('data-src'));
