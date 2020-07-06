@@ -8,6 +8,7 @@ from model.comic_chapter import *
 from model.comic_read_record import *
 from model.config.session import *
 from utils.calcVisit import *
+from PIL import Image
 
 website = Blueprint('website', __name__, static_folder='templates')
 
@@ -133,11 +134,16 @@ def comic_chapter_content():
     for root, dirs, files in img_file_list:
         for i in range(len(files)):
             f = files[i]
+            img_path = os.path.join(root, f)
+            img = Image.open(img_path)
+            w, h = img.size
             url = "/static/comic/%s/%s/%s" % (comic.name, chapter_name, f)
             url = url.replace(" ", "%20")
             img_url_list.append({
                 "url": url,
-                "file": f
+                "file": f,
+                "w": w,
+                "h": h
             })
     img_url_list.sort(key=lambda x: int(x["file"].split(".")[0]))
     for i in range(len(img_url_list)):

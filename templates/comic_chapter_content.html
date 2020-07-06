@@ -121,7 +121,8 @@
             });
             function getCurrentPage() {
                 let currentScrollHeight = $(window).height()+$(window).scrollTop();
-                return Math.ceil(currentScrollHeight / $("#0")[0].offsetHeight) - 2;
+                console.log("height:", $("#5")[0].offsetHeight);
+                return Math.ceil(currentScrollHeight / $("#5")[0].offsetHeight) - 2;
             }
             function loadImg($img){
                 $img.attr('src', $img.attr('data-src'));

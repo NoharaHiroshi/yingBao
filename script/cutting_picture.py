@@ -23,11 +23,11 @@ def convert_img(file_path):
 
 
 def cutting_image(file_path):
-    dst_path = os.path.join(os.path.split(file_path)[0], "%s_cutting" % os.path.split(file_path)[1])
+    dst_path = os.path.join(os.path.split(file_path)[0], "%s" % os.path.split(file_path)[1])
     if not os.path.exists(dst_path):
         os.makedirs(dst_path)
     for root, dirs, files in os.walk(file_path):
-        files.sort(key=lambda x: int(x.split("_")[1].split(".")[0]))
+        files.sort(key=lambda x: int(x.split(".")[0]))
         for i in range(len(files)):
             try:
                 name = files[i]
@@ -47,5 +47,5 @@ def cutting_image(file_path):
 
 
 if __name__ == "__main__":
-    path = u"F:\\downloads\\全职猎人\\32_Vol_33"
+    path = u"D:\\myWork\\downloadComics\\钢铁神兵BTX\\15_钢铁神兵Btx_第16卷"
     cutting_image(path)

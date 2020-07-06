@@ -9,13 +9,9 @@ def change_chapter_name(file_path):
         # dirs.sort(key=lambda x: int(re.search("\d+", x).group()) if re.search("\d+", x) else 9999)
         for i in range(len(dirs)):
             dir = dirs[i]
-            # new_dir = re.search("Vol_\d+", dir).group()
-            new_dir = dir.replace("_cutting", "")
-            print dirs[i], new_dir
+            new_dir = "%s_%s" % (i, dir)
+            print dir, new_dir
             os.rename(os.path.join(root, dir), os.path.join(root, new_dir))
-        # for i in range(len(files)):
-        #     name = files[i]
-        #     print "name: %s" % name
 
 
 def change_img_name(file_path):
@@ -30,5 +26,5 @@ def change_img_name(file_path):
 
 
 if __name__ == "__main__":
-    path = u"F:\downloads\全职猎人"
+    path = u"D:\myWork\downloadComics\钢铁神兵BTX"
     change_chapter_name(path)
