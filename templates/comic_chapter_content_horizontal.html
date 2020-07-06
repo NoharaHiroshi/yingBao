@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="wap-font-scale" content="no">
+    <script src="/static/js/jquery.min.js"></script>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background: #000;
+        }
+        ul li {
+            list-style: none;
+        }
+        .header {
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+            background: #fff;
+            background-size: 100% 2px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .footer {
+            height: 30px;
+            line-height: 30px;
+            font-size: 13px;
+            color: #888;
+            text-align: center;
+            background: #fff;
+            background-size: 100% 2px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .img-box {
+            background: #fff;
+            min-height: 0;
+            padding: 0;
+            margin-top: 65px;
+            position: absolute;
+            width: 100%;
+        }
+        .comic-img {
+            width: 100%;
+            position: absolute;
+            display: block;
+            margin: 0 auto;
+            z-index: 0;
+            height: 600px;
+        }
+        .header-return {
+            font-size: 12px;
+            color: #888;
+            text-decoration: none;
+            margin-left: 20px;
+            float: left;
+        }
+        .next-chapter {
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            float: right;
+            margin-right: 20px;
+            color: #888;
+        }
+        .before-chapter {
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            float: left;
+            margin-left: 20px;
+            color: #888;
+        }
+        .show-page {
+            display: inline-block;
+            text-align: center;
+            width: 20%;
+            margin: 0 auto;
+        }
+        .show-img {
+            z-index: 999;
+        }
+    </style>
+    <title>{{ comic_name }} | {{ chapter_name }}</title>
+</head>
+<body>
+    <div class="header">
+        <a class="header-return" href="comic_chapter_list?comic_id={{ comic_id }}">返回</a>
+        <span style="margin-left: -20px">{{ comic_name }} | {{ chapter_name }}</span>
+    </div>
+    <div class="img-box">
+        {% for img in img_url_list %}
+            <img class="comic-img" id={{ img["id"] }} data-src={{ img['url'] }} data-width={{ img['w'] }} data-height={{ img['h'] }} src="/static/img/loading.jpg">
+        {% endfor %}
+    </div>
+    <div class="footer">
+        <a class="before-chapter" href="/comic_chapter_content?comic_id={{ comic_id }}&chapter_id={{ before_chapter_id }}">< 上一话  </a>
+        <div class="show-page"><span id="current_page"></span>/{{ page_num }}</div>
+        <a class="next-chapter" href="/comic_chapter_content?comic_id={{ comic_id }}&chapter_id={{ next_chapter_id }}">下一话 > </a>
+    </div>
+    <script>
+            let current_page = parseInt(document.location.hash.split("#")[1]);
+            if(!current_page) {
+                current_page = 0;
+            }
+            let move_start;
+            let move_end;
+            let content_width = $(window).width();
+            start();
+            function start() {
+                // 加载后面2页
+                loadImg(current_page);
+                loadImg(current_page+1);
+                loadImg(current_page+2);
+                showImg(current_page);
+                $("#current_page").text(current_page);
+            }
+            $(window).on('touchstart',function(e){
+                move_start = e.originalEvent.touches[0].clientX;
+            }).on('touchend', function(e){
+                move_end = e.originalEvent.changedTouches[0].clientX;
+                // 向右滑动
+                if(move_end < move_start) {
+                    current_page += 1;
+                // 向左滑动
+                }else{
+                    current_page -= 1;
+                }
+                loadImg(current_page);
+                loadImg(current_page+1);
+                loadImg(current_page+2);
+                showImg(current_page);
+                $("#current_page").text(current_page);
+            });
+            function loadImg(page){
+                let images = $('.img-box img');
+                let $img = $(images[page]);
+                $img.attr('src', $img.attr('data-src'));
+                $img.attr('data-isLoading',1);
+                let h = parseInt(parseInt($img.attr('data-height')) *  (content_width / parseInt($img.attr('data-width'))));
+                $img.attr("height", h + "px");
+            }
+            function showImg(page) {
+                let $showImg = $('.show-img');
+                $showImg.removeClass("show-img");
+                let images = $('.img-box img');
+                let $img = $(images[page]);
+                $img.addClass("show-img");
+            }
+            setInterval(function () {
+                let data = {
+                    "chapter_id": "{{ chapter_id }}",
+                    "comic_id": "{{ comic_id }}",
+                    "page": current_page
+                };
+                console.log(data);
+                $.post("/comic_read_record", data, function(result){
+                    if(result.response === "success") {
+                        console.log("已保存阅读记录")
+                    }
+                });
+            }, 3000);
+    </script>
+</body>
+</html>

@@ -155,7 +155,7 @@ def comic_chapter_content():
         "img_url_list": img_url_list,
         "page_num": len(img_url_list)
     })
-    return render_template("comic_chapter_content.html", **context)
+    return render_template("comic_chapter_content_horizontal.html", **context)
 
 
 @website.route("/comic_read_record", methods=['POST'])
