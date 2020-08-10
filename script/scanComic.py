@@ -39,5 +39,5 @@ def scan_comic(comic_path=COMIC_PATH):
 
 
 if __name__ == "__main__":
-    path = u""
+    path = u" "
     scan_comic(path)
