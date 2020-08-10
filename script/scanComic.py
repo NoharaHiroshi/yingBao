@@ -9,11 +9,10 @@ from model.base import *
 COMIC_PATH = os.path.join(os.path.join(os.path.dirname(os.path.dirname(__file__)), "static"), "comic")
 
 
-def scan_comic():
+def scan_comic(comic_path=COMIC_PATH):
     with get_session() as db_session:
-        for comic_name in os.listdir(COMIC_PATH):
-            comic_name = comic_name.decode("gbk")
-            comic_name_path = os.path.join(COMIC_PATH, comic_name)
+        for comic_name in os.listdir(comic_path):
+            comic_name_path = os.path.join(comic_path, comic_name)
             comic_data = db_session.query(Comic).filter(
                 Comic.name == comic_name
             ).first()
@@ -40,4 +39,5 @@ def scan_comic():
 
 
 if __name__ == "__main__":
-    scan_comic()
+    path = u""
+    scan_comic(path)

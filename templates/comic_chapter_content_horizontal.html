@@ -49,12 +49,12 @@
             min-height: 0;
             padding: 0;
             margin-top: 65px;
-            position: absolute;
+            position: fixed;
             width: 100%;
         }
         .comic-img {
             width: 100%;
-            position: absolute;
+            position: fixed;
             display: block;
             margin: 0 auto;
             z-index: 0;
@@ -132,10 +132,11 @@
             }).on('touchend', function(e){
                 move_end = e.originalEvent.changedTouches[0].clientX;
                 // 向右滑动
-                if(move_end < move_start) {
+                if(move_start - move_end >= 60) {
                     current_page += 1;
+                }
                 // 向左滑动
-                }else{
+                if(move_end - move_start >= 60){
                     current_page -= 1;
                 }
                 loadImg(current_page);
