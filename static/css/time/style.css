@@ -178,6 +178,12 @@ a.twt-link-btn:hover {
 	margin:15px auto;
 	display:inline-block;
 }
+#countdown2	 {
+	max-width:747px;
+	height:auto;
+	margin:15px auto;
+	display:inline-block;
+}
 .title-love {
     height: 30px;
     line-height: 60px;
@@ -218,6 +224,10 @@ a.twt-link-btn:hover {
 	height: 30px;
 }
 #countdown1 .dash .digit {
+	color: rgb(245, 108, 108) !important;
+}
+
+#countdown2 .dash .digit {
 	color: rgb(245, 108, 108) !important;
 }
 
