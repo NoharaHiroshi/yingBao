@@ -48,7 +48,9 @@ def comic_list():
         "comic_list": comic_list_info
     }
     with get_session() as db_session:
-        comics = db_session.query(Comic).all()
+        comics = db_session.query(Comic).filter(
+            Comic.state == Comic.NORMAL
+        ).all()
         for comic in comics:
             comic_info = {
                 "id": str(comic.id),
